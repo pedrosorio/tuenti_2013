@@ -1,0 +1,3 @@
+The map is preprocessed a line at a time and a column at a time, building the adjacency list of each node in the graph that connects the map with the possible movements.
+
+The weight of each edge is given by the distance between the nodes + T * S (which is an integer). Finding the shortest path between the beginning and the end in this graph using Dijkstra and dividing the total weight by S gives the total time spent. 
