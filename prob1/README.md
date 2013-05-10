@@ -13,3 +13,35 @@ We should then keep track of:
 2. The largest number of bitcoins we can have at any day (in case an awesome deal appears and we sell them for a huge profit)
 
 This takes into account every possible optimal case (if the "best deal" is to buy coins at a price of 2 on day 6, we will use the largest amount of money we could get until day 5 to buy all of them).
+
+A more mathematical approach, we can prove by induction that at the end of each day **d** we achieve the largest amount of euros (euros = E[d], bitcoins = 0) and the largest amount of bitcoins (euros = e[d], bitcoins = B[d]) - breaking ties by largest amount of euros when there are two situations with the same amount of bitcoins - by selling all of the bitcoins we have or buying all the bitcoins we can at each previous day:
+
+* Base case: at the end of "day 0", we know the situation with maximum amount of euros (N, 0) and the maximum amout of bitcoins (N, 0) =)
+
+* Induction step:
+
+1. Assume at the end of day **i** we know the situations with the largest amount of euros (E[i], 0) and the largest amount of bitcoins (e[i], B[i]).
+
+2. At the end of day **i** there is another situation (m[i], b[i]), which by definition has m[i] < E[i], b[i] < B[i] or b[i] == B[i] and m[i] < e[i]. The proof by contradiction assumes that regardless of the situation, it may not achieve a largest amount of bitcoins or euros at the end of day **i+1** than the other two.
+
+2.1. Assume (m[i], b[i]) can achieve the largest amount of euros at the end of day **i+1**. This means (with bitcoin price of p[i+1] at day **i+1**): 
+
+    (1) b[i] * p[i+1] + m[i] > B[i] * p[i+1] + e[i]     
+    
+    (2) b[i] * p[i+1] + m[i] > E[i]
+    
+* If p[i] > p[i+1], we could have sold all our bitcoins on day **i** to get b[i] * p[i] + m[i] > b[i] * p[i+1] + m[i] > E[i]. This contradicts our original hypothesis that M[i] was the largest amount of euros we could have achieved at the end of day **i**.
+
+* If p[i+1] >= p[i], we could have bought more bitcoins on day **i** to get b[i] + floor(m[i] / p[i]) bitcoins and be left with e[i]%p[i] euros. Equation (2) above implies that:
+
+    (3) b[i] * p[i] + m[i] > B[i] * p[i] + e[i] < = > B[i] < b[i] + m[i] / p[i] - e[i] / p[i]
+    
+e[i] / p[i] < 1 or we would have bought more bitcoins and B[i] wouldn't be the largest amount of bitcoins. Now there are two possible situations:
+
+* m[i] / p[i] < 1. Using (3), this means b[i] == B[i] and m[i] > e[i], which contradict our hypothesis that B[i] was the largest amount of bitcoins and e[i] the largest amount of euros this number of bitcoins that could be achieved at the end of day **i**
+
+* m[i] / p[i] >= 1. In this case, b[i] + floor(m[i] / p[i]) > B[i], which contradicts our hypothesis that B[i] was the largest amount of bitcoins we could have achieved at the end of day **i**.
+
+This serves to prove that no other situation can achieve a larger amount of euros at the end of day **i+1**.
+
+2.2. Assume (m[i], b[i]) can achieve the largest amount of bitcoins at the end of day **i+1**. The approach to prove that this is impossible is quite similar to the one presented above.
