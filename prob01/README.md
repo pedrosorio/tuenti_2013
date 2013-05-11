@@ -26,24 +26,28 @@ A more mathematical approach, we can prove by induction that at the end of each 
 
 2.1. Assume **(m[i], b[i])** can achieve the largest amount of euros at the end of day **i+1**. This means (with bitcoin price of **p[i+1]** on day **i+1**): 
 
-    (1) b[i] * p[i+1] + m[i] > B[i] * p[i+1] + e[i]     
+```
+(1) b[i] * p[i+1] + m[i] > B[i] * p[i+1] + e[i]     
     
-    (2) b[i] * p[i+1] + m[i] > E[i]
+(2) b[i] * p[i+1] + m[i] > E[i]
+```
     
 * If **p[i] > p[i+1]**, we could have sold all our bitcoins on day **i** to get **b[i] * p[i] + m[i] > b[i] * p[i+1] + m[i] > E[i]** (the second inequality is equation (2)). This contradicts our original hypothesis that **E[i]** was the largest amount of euros we could have achieved at the end of day **i**.
 
 * If **p[i+1] >= p[i]**, we could have bought more bitcoins on day **i** to get **b[i] + floor(m[i] / p[i])** bitcoins and be left with **e[i]%p[i]** euros. Equation (1) above implies (because **0 <= b[i] <= B[i]** and **0 <= p[i] <= p[i+1]**) that:
 
-    (3) b[i] * p[i] + m[i] > B[i] * p[i] + e[i] < = > B[i] < b[i] + m[i] / p[i] - e[i] / p[i]
+```
+(3) b[i] * p[i] + m[i] > B[i] * p[i] + e[i] < = > B[i] < b[i] + m[i] / p[i] - e[i] / p[i]
+```
        
 Since, **e[i] / p[i] < 1** (or we would have bought more bitcoins on day **i** and B[i] wouldn't be the largest amount of bitcoins), there are two possible situations:
 
 * **m[i] / p[i] < 1**. Using (3), this means **b[i] == B[i]** and **m[i] > e[i]**, which contradict our hypothesis that **B[i]** was the largest amount of bitcoins breaking ties by the amount of euros **e[i]** that could be achieved at the end of day **i**
 
-* **m[i] / p[i] >= 1**. In this case (3) implis that **b[i] + floor(m[i] / p[i]) > B[i]**, which contradicts our hypothesis that **B[i]** was the largest amount of bitcoins we could have achieved at the end of day **i**.
+* **m[i] / p[i] >= 1**. In this case (3) implies that **b[i] + floor(m[i] / p[i]) > B[i]**, which contradicts our hypothesis that **B[i]** was the largest amount of bitcoins we could have achieved at the end of day **i**.
 
 This serves to prove that no other situation **(m[i], b[i])** can achieve a larger amount of euros at the end of day **i+1**.
 
 2.2. Assume **(m[i], b[i])** can achieve the largest amount of bitcoins at the end of day **i+1**. The approach to prove that this is impossible is quite similar to the one presented above and is left as an exercise to the reader =)
 
-3. (2.1) and (2.2) taken together show that there is no situation besides **(E[i], 0)** and **(e[i], B[i])** that could achieve a larger amount of bitcoins or euros at then end of day **i+1** thus completing the induction step and the proof.
+(2.1) and (2.2) taken together show that there is no situation besides **(E[i], 0)** and **(e[i], B[i])** that could achieve a larger amount of bitcoins or euros at then end of day **i+1** thus completing the induction step and the proof.
