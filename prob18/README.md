@@ -4,7 +4,7 @@ The problem asks to find if there is some cycle that allows to increase the ener
 
 When going through a cycle, the final energy is E_f and can be obtained from the initial energy E_i by finding the product of all the multipliers in the path, **E_f = E_i * product(m_k)**. In negative log energy terms: **- log(E_f) = - log(E_i) + sum(- log(m_k))**. Hence, if we find a cycle where the product of multipliers is bigger than one (or equivalently the sum of negative log multipliers is negative), we can increase the energy indefinitely.
 
-The reason for looking at the problem in terms of negative log multipliers, is that finding a negative cycle (sum of edge values) in a graph is a well-known problem:
+The reason for looking at the problem in terms of negative log multipliers, is that finding a negative cycle (sum of edge values) in a graph is a well-known problem - Bellman Ford would always do O(V*E) which is quite slow, but we just need to relax the edges going out of the nodes whose distances were updated in the last step, with this slight improvement the algorithm is **much** more efficient in practice:
 
 1. Initialize the distances to "infinity" (or larger than the maximum sum of edges in V steps)
 2. Start with a node (0 for example) at distance 0 and place it in **to_process** list
