@@ -1,3 +1,5 @@
+#NOTE: I misread the problem statement and didn't notice the input array would always be sorted, hence the solution presented here#
+
 Process the array of each test case, building a hash map from each number in the array to a list of the positions it occurs in.
 
 Create a sorted (in descending order) list of pairs (number of occurrences, number). For each query, go through this list and find how many times each number appears in the interval using binary search on the list of positions computed previously O(log M), M = number of times the number appears in the list. 
